@@ -20,8 +20,11 @@ backend, no uploads, video never leaves the device.
    ✊ 🖐️ ☝️ 👎 👍 ✌️ 🤟 (the last one is the ASL "I love you" sign).
 3. Labels are debounced over consecutive frames to filter out flicker between
    hand poses.
-4. **Gesture Match** mini-game: match as many prompted gestures as you can in
-   30 seconds; best score is kept in localStorage.
+4. Two mini-games:
+   - **Gesture Match** — match as many prompted gestures as you can in
+     30 seconds; best score is kept in localStorage.
+   - **Rock · Paper · Scissors** — countdown, show your move to the camera,
+     and play against the computer.
 
 The WASM runtime and the `.task` model are self-hosted in `public/`, so the
 deployed demo has no runtime CDN dependency. On phones you can flip between

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { FilesetResolver, GestureRecognizer, DrawingUtils } from '@mediapipe/tasks-vision';
 import GestureGame from './GestureGame.jsx';
+import RockPaperScissors from './RockPaperScissors.jsx';
 
 export const GESTURES = {
   Closed_Fist: { emoji: '✊', label: 'Fist' },
@@ -30,6 +31,7 @@ const GestureDemo = () => {
   const [hasMultipleCameras, setHasMultipleCameras] = useState(false);
   const [current, setCurrent] = useState(null); // { name, score } - raw per-frame reading
   const [stableGesture, setStableGesture] = useState(null); // name, after STABLE_FRAMES
+  const [game, setGame] = useState('match'); // match | rps
 
   // Load the model once. WASM runtime and .task model are self-hosted in
   // /public so the demo has no runtime CDN dependency.
@@ -214,7 +216,33 @@ const GestureDemo = () => {
         </div>
       </div>
 
-      <GestureGame stableGesture={stableGesture} />
+      <div className="mt-6 flex gap-2" role="tablist" aria-label="Games">
+        {[
+          ['match', 'Gesture Match'],
+          ['rps', 'Rock · Paper · Scissors'],
+        ].map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            role="tab"
+            aria-selected={game === id}
+            onClick={() => setGame(id)}
+            className={`px-4 py-2 rounded-xl font-mono text-sm font-bold transition-colors ${
+              game === id
+                ? 'bg-yellow-400 text-black'
+                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {game === 'match' ? (
+        <GestureGame stableGesture={stableGesture} />
+      ) : (
+        <RockPaperScissors stableGesture={stableGesture} />
+      )}
     </div>
   );
 };
