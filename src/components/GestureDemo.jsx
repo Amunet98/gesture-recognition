@@ -122,9 +122,9 @@ const GestureDemo = () => {
 
       for (const landmarks of result.landmarks) {
         drawer.drawConnectors(landmarks, GestureRecognizer.HAND_CONNECTIONS, {
-          color: '#facc15', lineWidth: 3,
+          color: '#f87171', lineWidth: 3,
         });
-        drawer.drawLandmarks(landmarks, { color: '#fef9c3', lineWidth: 1, radius: 4 });
+        drawer.drawLandmarks(landmarks, { color: '#fecaca', lineWidth: 1, radius: 4 });
       }
 
       const top = result.gestures[0]?.[0];
@@ -145,14 +145,14 @@ const GestureDemo = () => {
 
   if (status === 'error') {
     return (
-      <div className="text-center p-8 rounded-2xl bg-gray-800">
+      <div className="text-center p-8 rounded-2xl bg-[#1f2028]">
         Could not load the gesture model. Check your connection and refresh.
       </div>
     );
   }
   if (status === 'no-camera') {
     return (
-      <div className="text-center p-8 rounded-2xl bg-gray-800">
+      <div className="text-center p-8 rounded-2xl bg-[#1f2028]">
         Camera unavailable or permission denied. This demo needs a camera -
         allow access and refresh the page.
       </div>
@@ -198,15 +198,15 @@ const GestureDemo = () => {
         )}
       </div>
 
-      <div className="mt-5 w-full max-w-2xl flex items-center justify-center gap-4 p-4 rounded-2xl bg-gray-800">
+      <div className="mt-5 w-full max-w-2xl flex items-center justify-center gap-4 p-4 rounded-2xl bg-[#1f2028]">
         <span className="text-5xl w-16 text-center">{info ? info.emoji : '—'}</span>
         <div className="w-48">
           <div className="font-mono font-bold text-lg">
             {info ? info.label : 'Show a hand…'}
           </div>
-          <div className="mt-1 h-2 rounded-full bg-gray-700 overflow-hidden">
+          <div className="mt-1 h-2 rounded-full bg-[#2e303a] overflow-hidden">
             <div
-              className="h-full bg-yellow-400 transition-[width] duration-150"
+              className="h-full bg-red-400 transition-[width] duration-150"
               style={{ width: `${current ? Math.round(current.score * 100) : 0}%` }}
             />
           </div>
@@ -229,8 +229,8 @@ const GestureDemo = () => {
             onClick={() => setGame(id)}
             className={`px-4 py-2 rounded-xl font-mono text-sm font-bold transition-colors ${
               game === id
-                ? 'bg-yellow-400 text-black'
-                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                ? 'bg-red-500/20 text-red-400 border border-red-500/50'
+                : 'bg-[#1f2028] text-gray-300 hover:bg-[#2e303a]'
             }`}
           >
             {label}
