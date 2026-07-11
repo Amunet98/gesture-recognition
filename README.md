@@ -3,7 +3,7 @@
 Real-time hand gesture recognition running **entirely in the browser** — no
 backend, no uploads, video never leaves the device.
 
-**Live demo:** _(coming soon)_
+**Live demo:** https://gesture-recognition-ten.vercel.app
 
 ## How it works
 
