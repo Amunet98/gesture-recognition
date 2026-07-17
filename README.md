@@ -43,3 +43,7 @@ npm run dev
 ```
 
 Requires a camera and a browser with WebGL/WASM support (any modern one).
+
+---
+
+More of my work: **[bimeshpoudel.com.np](https://www.bimeshpoudel.com.np)**
