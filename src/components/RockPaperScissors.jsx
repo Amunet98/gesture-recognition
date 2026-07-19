@@ -70,7 +70,7 @@ const RockPaperScissors = ({ stableGesture }) => {
       : null;
 
   return (
-    <div className="mt-6 w-full max-w-2xl p-5 rounded-2xl bg-[#1f2028] text-center">
+    <div className="mt-6 w-full max-w-2xl p-5 rounded-2xl bg-white border border-[#e4ddd2] dark:bg-[#1f2028] dark:border-transparent text-center">
       <h2 className="font-bold text-xl">Rock · Paper · Scissors</h2>
       <div className="mt-2 flex justify-center gap-6 font-mono text-sm">
         <span>You: {scores.player}</span>
@@ -87,7 +87,7 @@ const RockPaperScissors = ({ stableGesture }) => {
           <button
             type="button"
             onClick={play}
-            className="mt-4 px-6 py-2 rounded-xl font-bold text-red-400 bg-red-500/15 border border-red-500/40 hover:bg-red-500/25"
+            className="mt-4 px-6 py-2 rounded-xl font-bold text-red-600 dark:text-red-400 bg-red-500/15 border border-red-500/40 hover:bg-red-500/25"
           >
             Play
           </button>
@@ -99,7 +99,7 @@ const RockPaperScissors = ({ stableGesture }) => {
       )}
 
       {phase === 'capture' && (
-        <div className="mt-4 text-3xl font-bold text-red-400 animate-pulse">
+        <div className="mt-4 text-3xl font-bold text-red-600 dark:text-red-400 animate-pulse">
           Show! ✊🖐️✌️
         </div>
       )}
@@ -121,7 +121,7 @@ const RockPaperScissors = ({ stableGesture }) => {
           <button
             type="button"
             onClick={play}
-            className="mt-3 px-6 py-2 rounded-xl font-bold text-red-400 bg-red-500/15 border border-red-500/40 hover:bg-red-500/25"
+            className="mt-3 px-6 py-2 rounded-xl font-bold text-red-600 dark:text-red-400 bg-red-500/15 border border-red-500/40 hover:bg-red-500/25"
           >
             Play again
           </button>
@@ -136,7 +136,7 @@ const RockPaperScissors = ({ stableGesture }) => {
           <button
             type="button"
             onClick={play}
-            className="mt-3 px-6 py-2 rounded-xl font-bold text-red-400 bg-red-500/15 border border-red-500/40 hover:bg-red-500/25"
+            className="mt-3 px-6 py-2 rounded-xl font-bold text-red-600 dark:text-red-400 bg-red-500/15 border border-red-500/40 hover:bg-red-500/25"
           >
             Try again
           </button>

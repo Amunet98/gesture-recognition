@@ -145,14 +145,14 @@ const GestureDemo = () => {
 
   if (status === 'error') {
     return (
-      <div className="text-center p-8 rounded-2xl bg-[#1f2028]">
+      <div className="text-center p-8 rounded-2xl bg-white border border-[#e4ddd2] dark:bg-[#1f2028] dark:border-transparent">
         Could not load the gesture model. Check your connection and refresh.
       </div>
     );
   }
   if (status === 'no-camera') {
     return (
-      <div className="text-center p-8 rounded-2xl bg-[#1f2028]">
+      <div className="text-center p-8 rounded-2xl bg-white border border-[#e4ddd2] dark:bg-[#1f2028] dark:border-transparent">
         Camera unavailable or permission denied. This demo needs a camera -
         allow access and refresh the page.
       </div>
@@ -174,14 +174,14 @@ const GestureDemo = () => {
           autoPlay
           playsInline
           muted
-          className="rounded-2xl w-full block aspect-[4/3] object-cover bg-black/40"
+          className="rounded-2xl w-full block aspect-[4/3] object-cover bg-[#0b0c10]"
         />
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full pointer-events-none"
         />
         {status === 'loading' && (
-          <div className="absolute inset-0 flex items-center justify-center rounded-2xl bg-black/60 font-mono text-sm scale-x-[-1]">
+          <div className="absolute inset-0 flex items-center justify-center rounded-2xl bg-black/60 text-gray-100 font-mono text-sm scale-x-[-1]">
             Loading hand-tracking model&hellip;
           </div>
         )}
@@ -198,13 +198,13 @@ const GestureDemo = () => {
         )}
       </div>
 
-      <div className="mt-5 w-full max-w-2xl flex items-center justify-center gap-4 p-4 rounded-2xl bg-[#1f2028]">
+      <div className="mt-5 w-full max-w-2xl flex items-center justify-center gap-4 p-4 rounded-2xl bg-white border border-[#e4ddd2] dark:bg-[#1f2028] dark:border-transparent">
         <span className="text-5xl w-16 text-center">{info ? info.emoji : '—'}</span>
         <div className="w-48">
           <div className="font-mono font-bold text-lg">
             {info ? info.label : 'Show a hand…'}
           </div>
-          <div className="mt-1 h-2 rounded-full bg-[#2e303a] overflow-hidden">
+          <div className="mt-1 h-2 rounded-full bg-gray-200 dark:bg-[#2e303a] overflow-hidden">
             <div
               className="h-full bg-red-400 transition-[width] duration-150"
               style={{ width: `${current ? Math.round(current.score * 100) : 0}%` }}
@@ -229,8 +229,8 @@ const GestureDemo = () => {
             onClick={() => setGame(id)}
             className={`px-4 py-2 rounded-xl font-mono text-sm font-bold transition-colors ${
               game === id
-                ? 'bg-red-500/20 text-red-400 border border-red-500/50'
-                : 'bg-[#1f2028] text-gray-300 hover:bg-[#2e303a]'
+                ? 'bg-red-500/20 text-red-600 dark:text-red-400 border border-red-500/50'
+                : 'bg-white border border-[#e4ddd2] text-gray-600 hover:bg-gray-100 dark:bg-[#1f2028] dark:border-transparent dark:text-gray-300 dark:hover:bg-[#2e303a]'
             }`}
           >
             {label}
