@@ -3,7 +3,9 @@ import ThemeToggle from './components/ThemeToggle.jsx';
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#faf9f6] text-gray-900 dark:bg-[#16171d] dark:text-gray-50">
+    // min-h-dvh, not min-h-screen: 100vh sits under mobile browser chrome and
+    // leaves the page scrollable by the height of the address bar.
+    <div className="min-h-dvh bg-bg text-gray-900 dark:text-gray-50">
       <div className="max-w-4xl mx-auto px-4 py-8 relative">
         <div className="absolute top-4 right-4 sm:top-6 sm:right-4">
           <ThemeToggle />

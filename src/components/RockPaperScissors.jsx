@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+import { Bot, Trophy } from 'lucide-react';
 
+// These stay emoji on purpose. They are not decoration or UI chrome - they
+// depict the hand shape the player has to physically make, and no abstract
+// icon can distinguish rock from paper from scissors.
 const MOVES = {
   Closed_Fist: { emoji: '✊', label: 'Rock', beats: 'Victory' },
   Open_Palm: { emoji: '🖐️', label: 'Paper', beats: 'Closed_Fist' },
@@ -60,17 +64,28 @@ const RockPaperScissors = ({ stableGesture }) => {
     setPhase('countdown');
   };
 
+  // Outcome as an element rather than a string so the win/lose markers can be
+  // icons. The trophy and bot are pure decoration next to text that already
+  // says who won, so they are aria-hidden.
   const result =
     phase === 'reveal' && playerMove && cpuMove
       ? playerMove === cpuMove
-        ? 'Draw!'
+        ? <>Draw!</>
         : MOVES[playerMove].beats === cpuMove
-          ? 'You win! 🎉'
-          : 'Computer wins 🤖'
+          ? (
+              <>
+                You win! <Trophy size={18} aria-hidden className="inline-block align-text-bottom" />
+              </>
+            )
+          : (
+              <>
+                Computer wins <Bot size={18} aria-hidden className="inline-block align-text-bottom" />
+              </>
+            )
       : null;
 
   return (
-    <div className="mt-6 w-full max-w-2xl p-5 rounded-2xl bg-white border border-[#e4ddd2] dark:bg-[#1f2028] dark:border-transparent text-center">
+    <div className="mt-6 w-full max-w-2xl p-5 rounded-2xl bg-surface border border-line text-center">
       <h2 className="font-bold text-xl">Rock · Paper · Scissors</h2>
       <div className="mt-2 flex justify-center gap-6 font-mono text-sm">
         <span>You: {scores.player}</span>
@@ -87,7 +102,7 @@ const RockPaperScissors = ({ stableGesture }) => {
           <button
             type="button"
             onClick={play}
-            className="mt-4 px-6 py-2 rounded-xl font-bold text-red-600 dark:text-red-400 bg-red-500/15 border border-red-500/40 hover:bg-red-500/25"
+            className="mt-4 px-6 min-h-11 rounded-xl font-bold text-accent bg-accent/15 border border-accent/40 hover:bg-accent/25 cursor-pointer transition-colors motion-reduce:transition-none"
           >
             Play
           </button>
@@ -99,7 +114,7 @@ const RockPaperScissors = ({ stableGesture }) => {
       )}
 
       {phase === 'capture' && (
-        <div className="mt-4 text-3xl font-bold text-red-600 dark:text-red-400 animate-pulse">
+        <div className="mt-4 text-3xl font-bold text-accent animate-pulse motion-reduce:animate-none">
           Show! ✊🖐️✌️
         </div>
       )}
@@ -121,7 +136,7 @@ const RockPaperScissors = ({ stableGesture }) => {
           <button
             type="button"
             onClick={play}
-            className="mt-3 px-6 py-2 rounded-xl font-bold text-red-600 dark:text-red-400 bg-red-500/15 border border-red-500/40 hover:bg-red-500/25"
+            className="mt-3 px-6 min-h-11 rounded-xl font-bold text-accent bg-accent/15 border border-accent/40 hover:bg-accent/25 cursor-pointer transition-colors motion-reduce:transition-none"
           >
             Play again
           </button>
@@ -136,7 +151,7 @@ const RockPaperScissors = ({ stableGesture }) => {
           <button
             type="button"
             onClick={play}
-            className="mt-3 px-6 py-2 rounded-xl font-bold text-red-600 dark:text-red-400 bg-red-500/15 border border-red-500/40 hover:bg-red-500/25"
+            className="mt-3 px-6 min-h-11 rounded-xl font-bold text-accent bg-accent/15 border border-accent/40 hover:bg-accent/25 cursor-pointer transition-colors motion-reduce:transition-none"
           >
             Try again
           </button>

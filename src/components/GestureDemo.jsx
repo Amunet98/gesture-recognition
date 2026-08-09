@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { FilesetResolver, GestureRecognizer, DrawingUtils } from '@mediapipe/tasks-vision';
+import { SwitchCamera } from 'lucide-react';
 import GestureGame from './GestureGame.jsx';
 import RockPaperScissors from './RockPaperScissors.jsx';
 
@@ -145,14 +146,14 @@ const GestureDemo = () => {
 
   if (status === 'error') {
     return (
-      <div className="text-center p-8 rounded-2xl bg-white border border-[#e4ddd2] dark:bg-[#1f2028] dark:border-transparent">
+      <div className="text-center p-8 rounded-2xl bg-surface border border-line">
         Could not load the gesture model. Check your connection and refresh.
       </div>
     );
   }
   if (status === 'no-camera') {
     return (
-      <div className="text-center p-8 rounded-2xl bg-white border border-[#e4ddd2] dark:bg-[#1f2028] dark:border-transparent">
+      <div className="text-center p-8 rounded-2xl bg-surface border border-line">
         Camera unavailable or permission denied. This demo needs a camera -
         allow access and refresh the page.
       </div>
@@ -174,7 +175,7 @@ const GestureDemo = () => {
           autoPlay
           playsInline
           muted
-          className="rounded-2xl w-full block aspect-[4/3] object-cover bg-[#0b0c10]"
+          className="rounded-2xl w-full block aspect-[4/3] object-cover bg-canvas"
         />
         <canvas
           ref={canvasRef}
@@ -189,24 +190,28 @@ const GestureDemo = () => {
           <button
             type="button"
             onClick={() => setFacingMode((m) => (m === 'user' ? 'environment' : 'user'))}
-            className="absolute bottom-3 right-3 p-2 rounded-full bg-black/50 text-white text-xl leading-none backdrop-blur-sm"
+            className="absolute bottom-3 right-3 grid place-items-center w-11 h-11 rounded-full bg-black/50 text-white backdrop-blur-sm cursor-pointer"
             aria-label="Switch camera"
             title="Switch camera"
           >
-            {'🔄'}
+            <SwitchCamera size={20} aria-hidden />
           </button>
         )}
       </div>
 
-      <div className="mt-5 w-full max-w-2xl flex items-center justify-center gap-4 p-4 rounded-2xl bg-white border border-[#e4ddd2] dark:bg-[#1f2028] dark:border-transparent">
-        <span className="text-5xl w-16 text-center">{info ? info.emoji : '—'}</span>
-        <div className="w-48">
+      {/* The gesture emoji is the reading itself - it shows the hand shape the
+          model matched - so it stays an emoji rather than becoming an icon. */}
+      <div className="mt-5 w-full max-w-2xl flex items-center justify-center gap-4 p-4 rounded-2xl bg-surface border border-line">
+        <span className="text-5xl w-16 shrink-0 text-center">{info ? info.emoji : '—'}</span>
+        {/* Fluid rather than a fixed w-48: at 360px the fixed width plus the
+            emoji column overflowed the card. */}
+        <div className="w-full max-w-48">
           <div className="font-mono font-bold text-lg">
             {info ? info.label : 'Show a hand…'}
           </div>
-          <div className="mt-1 h-2 rounded-full bg-gray-200 dark:bg-[#2e303a] overflow-hidden">
+          <div className="mt-1 h-2 rounded-full bg-muted overflow-hidden">
             <div
-              className="h-full bg-red-400 transition-[width] duration-150"
+              className="h-full bg-accent transition-[width] duration-150"
               style={{ width: `${current ? Math.round(current.score * 100) : 0}%` }}
             />
           </div>
@@ -216,7 +221,9 @@ const GestureDemo = () => {
         </div>
       </div>
 
-      <div className="mt-6 flex gap-2" role="tablist" aria-label="Games">
+      {/* flex-wrap matters here: "Rock · Paper · Scissors" is long enough that
+          the two tabs overflow a 360px phone on one line. */}
+      <div className="mt-6 flex flex-wrap justify-center gap-2 px-2" role="tablist" aria-label="Games">
         {[
           ['match', 'Gesture Match'],
           ['rps', 'Rock · Paper · Scissors'],
@@ -227,10 +234,10 @@ const GestureDemo = () => {
             role="tab"
             aria-selected={game === id}
             onClick={() => setGame(id)}
-            className={`px-4 py-2 rounded-xl font-mono text-sm font-bold transition-colors ${
+            className={`px-4 min-h-11 rounded-xl font-mono text-sm font-bold cursor-pointer transition-colors motion-reduce:transition-none ${
               game === id
-                ? 'bg-red-500/20 text-red-600 dark:text-red-400 border border-red-500/50'
-                : 'bg-white border border-[#e4ddd2] text-gray-600 hover:bg-gray-100 dark:bg-[#1f2028] dark:border-transparent dark:text-gray-300 dark:hover:bg-[#2e303a]'
+                ? 'bg-accent/20 text-accent border border-accent/50'
+                : 'bg-surface border border-line text-gray-600 hover:bg-muted dark:text-gray-300'
             }`}
           >
             {label}

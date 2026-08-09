@@ -63,7 +63,7 @@ const GestureGame = ({ stableGesture }) => {
   };
 
   return (
-    <div className="mt-6 w-full max-w-2xl p-5 rounded-2xl bg-white border border-[#e4ddd2] dark:bg-[#1f2028] dark:border-transparent text-center">
+    <div className="mt-6 w-full max-w-2xl p-5 rounded-2xl bg-surface border border-line text-center">
       <h2 className="font-bold text-xl">Gesture Match</h2>
 
       {phase === 'idle' && (
@@ -75,7 +75,7 @@ const GestureGame = ({ stableGesture }) => {
           <button
             type="button"
             onClick={start}
-            className="mt-4 px-6 py-2 rounded-xl font-bold text-red-600 dark:text-red-400 bg-red-500/15 border border-red-500/40 hover:bg-red-500/25"
+            className="mt-4 px-6 min-h-11 rounded-xl font-bold text-accent bg-accent/15 border border-accent/40 hover:bg-accent/25 cursor-pointer transition-colors motion-reduce:transition-none"
           >
             Start
           </button>
@@ -94,7 +94,7 @@ const GestureGame = ({ stableGesture }) => {
           >
             {GESTURES[target].emoji}
           </div>
-          <div className="mt-2 font-mono font-bold text-red-600 dark:text-red-400">
+          <div className="mt-2 font-mono font-bold text-accent">
             {GESTURES[target].label}
           </div>
         </>
@@ -109,7 +109,7 @@ const GestureGame = ({ stableGesture }) => {
           <button
             type="button"
             onClick={start}
-            className="mt-4 px-6 py-2 rounded-xl font-bold text-red-600 dark:text-red-400 bg-red-500/15 border border-red-500/40 hover:bg-red-500/25"
+            className="mt-4 px-6 min-h-11 rounded-xl font-bold text-accent bg-accent/15 border border-accent/40 hover:bg-accent/25 cursor-pointer transition-colors motion-reduce:transition-none"
           >
             Play again
           </button>
