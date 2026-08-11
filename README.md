@@ -31,9 +31,27 @@ deployed demo has no runtime CDN dependency. On phones you can flip between
 front and back cameras; the front-camera preview is mirrored like native
 camera apps (classification runs on the unmirrored frames).
 
+## Interface
+
+**Light and dark themes**, dark by default, with a light "paper" theme —
+persisted to `localStorage` and applied by a pre-paint script so the theme
+never flashes on load.
+
+The palette lives as a `:root`/`.dark` token block in `index.css`, mapped
+onto Tailwind utilities via `@theme inline` — the same shape used by
+[air-canvas](https://github.com/Amunet98/air-canvas) and
+[lekh](https://github.com/Amunet98/lekh), so the demos read as one family.
+Icons are `lucide-react` rather than emoji, which are font-dependent and
+render differently on every platform.
+
+Every control has a real **keyboard and touch baseline**: visible
+`focus-visible` rings, labelled controls, thumb-sized touch targets, and
+`prefers-reduced-motion` honoured — which matters here, since the game
+states animate.
+
 ## Stack
 
-React 19 · Vite · Tailwind CSS v4 · @mediapipe/tasks-vision
+React 19 · Vite · Tailwind CSS v4 · @mediapipe/tasks-vision · lucide-react
 
 ## Run locally
 
