@@ -27,9 +27,13 @@ backend, no uploads, video never leaves the device.
      and play against the computer.
 
 The WASM runtime and the `.task` model are self-hosted in `public/`, so the
-deployed demo has no runtime CDN dependency. On phones you can flip between
-front and back cameras; the front-camera preview is mirrored like native
-camera apps (classification runs on the unmirrored frames).
+deployed demo has no runtime CDN dependency. Both are requested from the site
+root — as relative paths they only resolved when the app was served from the
+domain root. The model loads with the **GPU delegate first and CPU as a
+fallback**, so a machine without a working GPU delegate still runs instead of
+failing setup and blaming the network. On phones you can flip between front
+and back cameras; the front-camera preview is mirrored like native camera apps
+(classification runs on the unmirrored frames).
 
 ## Interface
 
