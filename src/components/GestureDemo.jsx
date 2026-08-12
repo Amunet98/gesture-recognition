@@ -39,22 +39,37 @@ const GestureDemo = () => {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      try {
-        const fileset = await FilesetResolver.forVisionTasks('wasm');
-        const recognizer = await GestureRecognizer.createFromOptions(fileset, {
-          baseOptions: { modelAssetPath: 'models/gesture_recognizer.task', delegate: 'GPU' },
-          runningMode: 'VIDEO',
-          numHands: 1,
-        });
-        if (cancelled) {
-          recognizer.close();
-          return;
-        }
-        recognizerRef.current = recognizer;
-        setStatus((s) => (s === 'loading' ? 'ready' : s));
-      } catch {
-        if (!cancelled) setStatus('error');
+      // Root-relative. These were resolved against the current path, so the
+      // demo only worked when served from the domain root.
+      const fileset = await FilesetResolver.forVisionTasks('/wasm').catch(() => null);
+      if (cancelled) return;
+      if (!fileset) {
+        setStatus('error');
+        return;
       }
+
+      // GPU first, CPU second. With no fallback, a machine whose GPU delegate
+      // is unavailable threw here and was told to check its connection — which
+      // is wrong, and unactionable. CPU handles one hand fine.
+      for (const delegate of ['GPU', 'CPU']) {
+        try {
+          const recognizer = await GestureRecognizer.createFromOptions(fileset, {
+            baseOptions: { modelAssetPath: '/models/gesture_recognizer.task', delegate },
+            runningMode: 'VIDEO',
+            numHands: 1,
+          });
+          if (cancelled) {
+            recognizer.close();
+            return;
+          }
+          recognizerRef.current = recognizer;
+          setStatus((s) => (s === 'loading' ? 'ready' : s));
+          return;
+        } catch {
+          if (cancelled) return;
+        }
+      }
+      setStatus('error');
     })();
     return () => {
       cancelled = true;
@@ -147,7 +162,9 @@ const GestureDemo = () => {
   if (status === 'error') {
     return (
       <div className="text-center p-8 rounded-2xl bg-surface border border-line">
-        Could not load the gesture model. Check your connection and refresh.
+        Could not load the gesture model. This browser may not support the
+        WebAssembly runtime it needs — try a different one, or check your
+        connection and refresh.
       </div>
     );
   }
